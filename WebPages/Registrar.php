@@ -1,4 +1,7 @@
 <!doctype html>
+<?php 
+include("Connection.php");
+?>
 <html lang="en">
 
 <head>
@@ -29,52 +32,25 @@
     </div>
 
     <div class="row">
-        <?php
-        $serverName = "EHV\PRUEBAS"; //serverName\instanceName
-        $connectionInfo = array( "Database"=>"BD_distribucion", "UID"=>"sa", "PWD"=>"HVjose28");
-        $conn = sqlsrv_connect( $serverName, $connectionInfo);
         
-        if( $conn ) {
-             echo "Connection established.<br />";
-        }else{
-             echo "Connection could not be established.<br />";
-             die( print_r( sqlsrv_errors(), true));
-        }
-        
-        $tsql = "SELECT * FROM apellidos";
-        $stmt = sqlsrv_query($conn , $tsql);
-        
-        
-        if( $stmt === false) {
-            die( print_r( sqlsrv_errors(), true) );
-        }
-        
-        while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
-              echo $row['id'].", ".$row['apellidos']."<br />";
-        }
-        
-        sqlsrv_free_stmt( $stmt);  
-        sqlsrv_close( $conn);
-        
-        ?>
 
       <div class="col-md-12">
         <div class="text-center">
           <h3 class="mb-3">Registrarse</h3>
         </div>
         <hr class="mb-4">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" method="POST" novalidate>
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="Nombre">Nombre</label>
-              <input type="text" class="form-control" id="Nombre" placeholder="Juanito" value="" required>
+              <input type="text" class="form-control" name="Nombre" id="Nombre" placeholder="Juanito" value="" required>
               <div class="invalid-feedback">
                 Por favor ingrese un Nombre.
               </div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="Apellido">Apellido</label>
-              <input type="text" class="form-control" id="Apellido" placeholder="Alvarez" value="" required>
+              <input type="text" class="form-control" name="Apellido" id="Apellido" placeholder="Alvarez" value="" required>
               <div class="invalid-feedback">
                 Por favor ingrese un Apellido.
               </div>
@@ -85,21 +61,21 @@
           <div class="row">
             <div class="col-md-3 mb-3">
               <label for="Identificacion">Identificacion</label>
-              <input type="text" class="form-control" id="Identificacion" placeholder="123456789" required>
+              <input type="text" class="form-control" name="Identificacion" id="Identificacion" placeholder="123456789" required>
               <div class="invalid-feedback">
                 Por favor ingrese una Identificacion.
               </div>
             </div>
             <div class="col-md-3 mb-3">
               <label for="email">Correo</label>
-              <input type="email" class="form-control" id="email" placeholder="ejemplo@ejemplo.com" required>
+              <input type="email" class="form-control" name="email" id="email" placeholder="ejemplo@ejemplo.com" required>
               <div class="invalid-feedback">
                 Por favor ingrese un Correo valido.
               </div>
             </div>
             <div class="col-md-3 mb-3">
               <label for="Contraseña">Contraseña</label>
-              <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+              <input type="password" class="form-control" name="Contraseña" id="password" placeholder="Contraseña" required>
               <div class="invalid-feedback">
                 Por favor ingrese una Contraseña.
               </div>
@@ -109,7 +85,7 @@
 
           <div class="mb-3">
             <label for="Cuenta">Cuenta Bancaria</label>
-            <input type="text" class="form-control" id="Cuenta" placeholder="72222333322221111" required>
+            <input type="text" class="form-control" name="Cuenta" id="Cuenta" placeholder="72222333322221111" required>
             <div class="invalid-feedback">
               Por favor ingrese una Cuenta Bancaria.
             </div>
@@ -117,7 +93,7 @@
 
           <div class="mb-3">
               <label for="Provincia">Provincia</label>
-              <select class="custom-select d-block w-100" id="Provincia" required>
+              <select class="custom-select d-block w-100" name="Provincia" id="Provincia" required>
                 <option value="">Escoja...</option>
                 <option>San Jose</option>
                 <option>Alajuela</option>
@@ -133,10 +109,32 @@
             </div>
 
           <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+          <button class="btn btn-primary btn-lg btn-block" name="Registrar" type="submit">Continue to checkout</button>
         </form>
       </div>
     </div>
+
+    <?php 
+      if(isset($_POST['Registrar'])){
+        $Nombre = $_POST['Nombre'];
+        $Apellido = $_POST['Apellido'];
+        $Identificacion = $_POST['Identificacion'];
+        $Contraseña = $_POST['Contraseña'];
+        $email = $_POST['email'];
+        $Provincia = $_POST['Provincia'];
+        $Cuenta = $_POST['Cuenta'];
+
+        $insert = "INSERT INTO apellidos(id,apellidos)VALUES(8,'$Apellido')";
+
+        $ejecutar = sqlsrv_query($conn, $insert);
+
+        if($ejecutar){
+          echo "<script>window.alert('SI se registro correctamente')</script>";
+        }else{
+          echo "<script>window.alert('NO se registro correctamente')</script>";
+        }
+      }
+    ?>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
       <p class="mb-1">&copy; 2017-2018 CourierTEC</p>
