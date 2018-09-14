@@ -11,10 +11,10 @@
   <title>Dashboard Template for Bootstrap</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../WebPages/bootstrap/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="dashboard.css" rel="stylesheet">
+  <link href="../WebPages/css/dashboard.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,13 +34,13 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="ClienteHome.html">
                 <span data-feather="home"></span>
-                Home <span class="sr-only">(current)</span>
+                Home
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="ClientePerfil.html">
                 <span data-feather="users"></span>
                 Perfil
               </a>
@@ -49,12 +49,9 @@
             <li class="nav-item">
               <a class="nav-link active" href="#">
                 <span data-feather="file"></span>
-                Orders
+                Ordenes
               </a>
             </li>
-
-
-
           </ul>
         </div>
       </nav>
@@ -377,7 +374,10 @@
 
 
   <!-- Icons -->
-
+  <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
 
   <!-- Graphs -->
 

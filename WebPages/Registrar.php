@@ -83,18 +83,25 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-3 mb-3">
               <label for="Identificacion">Identificacion</label>
               <input type="text" class="form-control" id="Identificacion" placeholder="123456789" required>
               <div class="invalid-feedback">
                 Por favor ingrese una Identificacion.
               </div>
             </div>
-            <div class="col-md-6 mb-3">
-              <label for="email">Correo<span class="text-muted">(Optional)</span></label>
+            <div class="col-md-3 mb-3">
+              <label for="email">Correo</label>
               <input type="email" class="form-control" id="email" placeholder="ejemplo@ejemplo.com" required>
               <div class="invalid-feedback">
-                Por favor ingrese un correo valido.
+                Por favor ingrese un Correo valido.
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="Contraseña">Contraseña</label>
+              <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+              <div class="invalid-feedback">
+                Por favor ingrese una Contraseña.
               </div>
             </div>
 
@@ -104,7 +111,7 @@
             <label for="Cuenta">Cuenta Bancaria</label>
             <input type="text" class="form-control" id="Cuenta" placeholder="72222333322221111" required>
             <div class="invalid-feedback">
-              Por favor ingrese una cuenta bancaria.
+              Por favor ingrese una Cuenta Bancaria.
             </div>
           </div>
 
