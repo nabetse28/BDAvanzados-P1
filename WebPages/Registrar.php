@@ -59,21 +59,21 @@ include("Connection.php");
           </div>
 
           <div class="row">
-            <div class="col-md-3 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="Identificacion">Identificacion</label>
               <input type="text" class="form-control" name="Identificacion" id="Identificacion" placeholder="123456789" required>
               <div class="invalid-feedback">
                 Por favor ingrese una Identificacion.
               </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="email">Correo</label>
               <input type="email" class="form-control" name="email" id="email" placeholder="ejemplo@ejemplo.com" required>
               <div class="invalid-feedback">
                 Por favor ingrese un Correo valido.
               </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="Contraseña">Contraseña</label>
               <input type="password" class="form-control" name="Contraseña" id="password" placeholder="Contraseña" required>
               <div class="invalid-feedback">
@@ -109,7 +109,7 @@ include("Connection.php");
             </div>
 
           <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" name="Registrar" type="submit">Continue to checkout</button>
+          <button class="btn btn-primary btn-lg btn-block" name="Registrar" href="InicioSesion.html" type="submit">Registrarse</button>
         </form>
       </div>
     </div>
@@ -130,8 +130,10 @@ include("Connection.php");
 
         if($ejecutar){
           echo "<script>window.alert('SI se registro correctamente')</script>";
+          echo '<script>window.location = "localhost/InicioSesion.html"</script>';
         }else{
-          echo "<script>window.alert('NO se registro correctamente')</script>";
+          echo "<script>window.alert('NO se registro correctamente $Provincia')</script>";
+          echo '<script>window.location = "InicioSesion.html"</script>';
         }
       }
     ?>
