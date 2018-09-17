@@ -39,20 +39,27 @@ include("Connection.php");
           <h3 class="mb-3">Registrarse</h3>
         </div>
         <hr class="mb-4">
-        <form class="needs-validation" method="POST" novalidate>
+        <form class="needs-validation" method="GET" novalidate>
           <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="Nombre">Nombre</label>
               <input type="text" class="form-control" name="Nombre" id="Nombre" placeholder="Juanito" value="" required>
               <div class="invalid-feedback">
                 Por favor ingrese un Nombre.
               </div>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="Apellido">Apellido</label>
               <input type="text" class="form-control" name="Apellido" id="Apellido" placeholder="Alvarez" value="" required>
               <div class="invalid-feedback">
                 Por favor ingrese un Apellido.
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="Telefono">Telefono</label>
+              <input type="text" class="form-control" name="Telefono" id="Telefono" placeholder="88888888" value="" required>
+              <div class="invalid-feedback">
+                Por favor ingrese un Telefono.
               </div>
             </div>
 
@@ -109,31 +116,43 @@ include("Connection.php");
             </div>
 
           <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" name="Registrar" href="InicioSesion.html" type="submit">Registrarse</button>
+          <button class="btn btn-primary btn-lg btn-block" name="Registrar"  type="submit">Registrarse</button>
         </form>
       </div>
     </div>
 
     <?php 
-      if(isset($_POST['Registrar'])){
-        $Nombre = $_POST['Nombre'];
-        $Apellido = $_POST['Apellido'];
-        $Identificacion = $_POST['Identificacion'];
-        $Contraseña = $_POST['Contraseña'];
-        $email = $_POST['email'];
-        $Provincia = $_POST['Provincia'];
-        $Cuenta = $_POST['Cuenta'];
+      if(isset($_GET['Registrar'])){
+        $Nombre = $_GET['Nombre'];
+        $Apellido = $_GET['Apellido'];
+        $Identificacion = $_GET['Identificacion'];
+        $Telefono = $_GET['Telefono'];
+        $Contraseña = $_GET['Contraseña'];
+        $email = $_GET['email'];
+        $Provincia = $_GET['Provincia'];
+        $Cuenta = $_GET['Cuenta'];
 
-        $insert = "INSERT INTO apellidos(id,apellidos)VALUES(8,'$Apellido')";
+
+        if($Provincia == 'Cartago'){
+          $IdSucursal = 2;
+        }else if($Provincia == 'San Jose'){
+          $IdSucursal = 3;
+        }else{
+          $IdSucursal = 1;
+        }
+
+        $insert = "INSERT INTO Usuario VALUES($Identificacion,'$Nombre','$Apellido',$IdSucursal,'$email','$Contraseña',$Telefono,3)";
+
+
 
         $ejecutar = sqlsrv_query($conn, $insert);
 
         if($ejecutar){
           echo "<script>window.alert('SI se registro correctamente')</script>";
-          echo '<script>window.location = "localhost/InicioSesion.html"</script>';
+          echo '<script>window.location = "InicioSesion.php"</script>';
         }else{
-          echo "<script>window.alert('NO se registro correctamente $Provincia')</script>";
-          echo '<script>window.location = "InicioSesion.html"</script>';
+          echo "<script>window.alert('NO se registro correctamente')</script>";
+          echo '<script>window.location = "Registrar.php"</script>';
         }
       }
     ?>
