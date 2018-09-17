@@ -4,9 +4,7 @@
         $connectionInfo = array( "Database"=>"courierTEC", "UID"=>"sa", "PWD"=>"HVjose28", "CharacterSet"=>"UTF-8");
         $conn = sqlsrv_connect( $serverName, $connectionInfo);
         
-        if( $conn ) {
-             echo "Connection established.<br/>";
-        }else{
+        if( $conn == false ) {
              echo "Connection could not be established.<br/>";
              die( print_r( sqlsrv_errors(), true));
         }

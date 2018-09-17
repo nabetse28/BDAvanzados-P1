@@ -1,4 +1,15 @@
 <!doctype html>
+<?php
+    $serverName = "EHV\PRUEBAS"; //serverName\instanceName
+    $connectionInfo = array( "Database"=>"courierTEC", "UID"=>"sa", "PWD"=>"HVjose28", "CharacterSet"=>"UTF-8");
+    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+    
+    if( $conn == false ){
+        echo "Connection could not be established.<br/>";
+        die( print_r( sqlsrv_errors(), true));
+    }
+
+?>
 <html lang="en">
 
 <head>
@@ -66,301 +77,89 @@
           <table class="table table-striped table-sm">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
+                <th class="text-center">Numero de Paquete</th>
+                <th class="text-center">Sucursal</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Tipo</th>
+                <th class="text-center">Categoria</th>
+                <th class="text-center">Peso (kg)</th>
+                <th class="text-center">Valor del Paquete</th>
+                <th class="text-center">Monto a Pagar</th>
+                <th class="text-center">Fecha Recepcion</th>
+                <th class="text-center">Fecha Recojo</th>
               </tr>
             </thead>
+
+            <?php 
+                $Cedula = $_COOKIE['Cedula'];
+                $consulta = "EXECUTE PAQUETESCLIENTE $Cedula";
+
+                $paquetes = sqlsrv_query($conn,$consulta);
+
+                if($paquetes == false){
+                    die( print_r( sqlsrv_errors(), true) );
+                }else{
+
+                    while( $row = sqlsrv_fetch_array( $paquetes, SQLSRV_FETCH_ASSOC) ) {
+                        
+                  
+            ?>
             <tbody>
               <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
-                <td>sit</td>
+                <td class="text-center"><?php echo $row['IdPaquete']; ?></td>
+                <td class="text-center"><?php  
+                    if($row['IdSucursal'] == 1){
+                        echo "Heredia";
+                    }else if($row['IdSucursal'] == 2){
+                        echo "Cartago";
+                    }else{
+                        echo "San Jose";
+                    }
+                ?></td>
+                <td class="text-center"><?php echo $row['Descripcion']; ?></td>
+                <td class="text-center"><?php 
+                    if($row['IdTipoPaquete'] == 1){
+                        echo "Electronica";
+                    }else if($row['IdTipoPaquete'] == 2){
+                        echo "Ropa";
+                    }else if($row['IdTipoPaquete'] == 3){
+                        echo "Juguetes";
+                    }else if($row['IdTipoPaquete'] == 4){
+                        echo "Hogar";
+                    }else if($row['IdTipoPaquete'] == 5){
+                        echo "Comida";
+                    }else if($row['IdTipoPaquete'] == 6){
+                        echo "Baterias";
+                    }else if($row['IdTipoPaquete'] == 7){
+                        echo "Quimicos";
+                    }else{
+                        echo "Herramientas";
+                    }
+                ?></td>
+                <td class="text-center"><?php 
+                    if($row['IdCategoriaPaquete'] == 1){
+                        echo "Regular";
+                    }else{
+                        echo "Especial";
+                    }
+                ?></td>
+                <td class="text-center"><?php echo $row['PesoPaquete']; ?></td>
+                <td class="text-center"><?php echo $row['ValorPaquete']; ?></td>
+                <td class="text-center"><?php echo $row['MontoPagar']; ?></td>
+                <td class="text-center"><?php echo date_format($row['FechaRecepcion'],'j/n/o'); ?></td>
+                <td class="text-center"><?php 
+                    if($row['FechaRetiro'] == NULL){
+                        echo "Pendiente";
+                    }else{
+                        echo date_format($row['FechaRetiro'],'j/n/o') ;
+                    }
+                ?></td>
               </tr>
-              <tr>
-                <td>1,002</td>
-                <td>amet</td>
-                <td>consectetur</td>
-                <td>adipiscing</td>
-                <td>elit</td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>Integer</td>
-                <td>nec</td>
-                <td>odio</td>
-                <td>Praesent</td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>libero</td>
-                <td>Sed</td>
-                <td>cursus</td>
-                <td>ante</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,005</td>
-                <td>Nulla</td>
-                <td>quis</td>
-                <td>sem</td>
-                <td>at</td>
-              </tr>
-              <tr>
-                <td>1,006</td>
-                <td>nibh</td>
-                <td>elementum</td>
-                <td>imperdiet</td>
-                <td>Duis</td>
-              </tr>
-              <tr>
-                <td>1,007</td>
-                <td>sagittis</td>
-                <td>ipsum</td>
-                <td>Praesent</td>
-                <td>mauris</td>
-              </tr>
-              <tr>
-                <td>1,008</td>
-                <td>Fusce</td>
-                <td>nec</td>
-                <td>tellus</td>
-                <td>sed</td>
-              </tr>
-              <tr>
-                <td>1,009</td>
-                <td>augue</td>
-                <td>semper</td>
-                <td>porta</td>
-                <td>Mauris</td>
-              </tr>
-              <tr>
-                <td>1,010</td>
-                <td>massa</td>
-                <td>Vestibulum</td>
-                <td>lacinia</td>
-                <td>arcu</td>
-              </tr>
-              <tr>
-                <td>1,011</td>
-                <td>eget</td>
-                <td>nulla</td>
-                <td>Class</td>
-                <td>aptent</td>
-              </tr>
-              <tr>
-                <td>1,012</td>
-                <td>taciti</td>
-                <td>sociosqu</td>
-                <td>ad</td>
-                <td>litora</td>
-              </tr>
-              <tr>
-                <td>1,013</td>
-                <td>torquent</td>
-                <td>per</td>
-                <td>conubia</td>
-                <td>nostra</td>
-              </tr>
-              <tr>
-                <td>1,014</td>
-                <td>per</td>
-                <td>inceptos</td>
-                <td>himenaeos</td>
-                <td>Curabitur</td>
-              </tr>
-              <tr>
-                <td>1,015</td>
-                <td>sodales</td>
-                <td>ligula</td>
-                <td>in</td>
-                <td>libero</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>dapibus</td>
-                <td>diam</td>
-                <td>Sed</td>
-                <td>nisi</td>
-              </tr>
+              <?php
+                    }
+                }
+              ?>
+              
             </tbody>
           </table>
         </div>

@@ -141,8 +141,8 @@ include("Connection.php");
           $IdSucursal = 1;
         }
 
-        $insert = "INSERT INTO Usuario VALUES($Identificacion,'$Nombre','$Apellido',$IdSucursal,'$email','$Contraseña',$Telefono,3)";
-
+        
+        $insert = "EXECUTE USUARIOCLIENTE $Identificacion,'$Nombre','$Apellido',$IdSucursal,'$email','$Contraseña',$Telefono,$Cuenta,'$Provincia'";
 
 
         $ejecutar = sqlsrv_query($conn, $insert);

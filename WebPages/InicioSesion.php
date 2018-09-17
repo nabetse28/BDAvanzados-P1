@@ -18,7 +18,17 @@ include('Connection.php');
   </head>
 
   <body>
-    
+    <?php
+        setcookie("Nombre","",time()-3600);
+        setcookie("Apellido","",time()-3600);
+        setcookie("Cedula","",time()-3600);
+        setcookie("IdSucursal","",time()-3600);
+        setcookie("Correo","",time()-3600);
+        setcookie("Telefono","",time()-3600);
+        setcookie("IdTipoCliente","",time()-3600);
+        setcookie("Provincia","",time()-3600);
+        setcookie("Cuenta","",time()-3600);
+    ?>
     <div class="container">
       <div class="text-center">
         <h1 class="display-1 py-5">CourierTEC</h1>
@@ -58,9 +68,9 @@ include('Connection.php');
             
             
             
-            $POSTusuarios = "EXECUTE LOGINUSUARIO '$Correo','$Password'";
+            $GetUsuarios = "EXECUTE LOGINUSUARIO '$Correo','$Password'";
 
-            $ejecutar = sqlsrv_query($conn, $POSTusuarios);
+            $ejecutar = sqlsrv_query($conn, $GetUsuarios);
 
             if( $ejecutar === false) {
                 die( print_r( sqlsrv_errors(), true) );
