@@ -60,13 +60,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a id="prom-sel" class="nav-link active" href="#">
+                <a class="nav-link active" href="#">
                   <span data-feather="trending-up"></span>
                   Monto Promedio
                 </a>
               </li>
               <li class="nav-item">
-                <a id="mont-paq-sel" class="nav-link" href="#">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.html">
                   <span data-feather="circle"></span>
                   Monto de paquete por tipo
                 </a>
@@ -96,7 +96,7 @@
         <!-- Lista del promedio pagado por usuario por paquetes -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Monto promedio para tipo de paquete</h1>
+            <h1 class="h2">Monto promedio por cliente</h1>
           </div>
           <h4 class="h4"> Seleccionar rango de fechas de consulta </h4>
 
@@ -132,65 +132,25 @@
 
           <button id="obt-prom-usrs" class="btn btn-primary btn-lg btn-block principal mb-3">Consultar</button>
 
-          <div id="prom-usrs" class="row" hidden>
-            <div class="col-12">
-              <div id="accordion">
-                <div class="card">
-                  <div class="card-header h4 " id="headingOne">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Nombre de usuario 1
-                      </button>
-                    </h5>
-                  </div>
+          <table class="mt-4 table table-striped table-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-center w-25">Cédula</th>
+                <th class="text-center w-25">Nombre</th>
+                <th class="text-center w-25">Apellidos</th>
+                <th class="text-center w-25">Promedio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center align-middle w-25" >1,001</td>
+                <td class="text-center align-middle w-25">Lorem</td>
+                <td class="text-center align-middle w-25">bla bla</td>
+                <td class="text-center align-middle w-25">bla bla</td>
+              </tr>
+            </tbody>
+          </table>
 
-                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Monto promedio</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div id="accordion">
-                <div class="card">
-                  <div class="card-header h4 " id="headingTwo">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        Nombre de usuario 2
-                      </button>
-                    </h5>
-                  </div>
-
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Monto promedio</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div id="accordion">
-                <div class="card">
-                  <div class="card-header h4 " id="headingThree">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                        Nombre de usuario 3
-                      </button>
-                    </h5>
-                  </div>
-
-                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Monto promedio</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </main>
         <!-- Fin lista del promedio pagado por usuario por paquetes -->
 

@@ -42,49 +42,49 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoRetirarPaquete.html">
+                <a id="retirar-paq-sel"class="nav-link" href="../WebPages/EmpleadoRetirarPaquete.html">
                   <span data-feather="shopping-bag"></span>
                   Retirar paquete
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoDineroRecaudado.html">
+                <a id="din-rec-sel" class="nav-link" href="../WebPages/EmpleadoDineroRecaudado.html">
                   <span data-feather="dollar-sign"></span>
                   Dinero recaudado
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.html">
+                <a id="paq-mes-sel" class="nav-link" href="../WebPages/EmpleadoPaquetesMes.html">
                   <span data-feather="calendar"></span>
                   Paquetes por mes
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.html">
+                <a id="prom-sel" class="nav-link" href="../WebPages/EmpleadoMontoPromedio.html">
                   <span data-feather="trending-up"></span>
                   Monto Promedio
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.html">
+                <a id="mont-paq-sel" class="nav-link active" href="#">
                   <span data-feather="circle"></span>
                   Monto de paquete por tipo
                 </a>
               </li>
               <li class="nav-item">
-                <a id="mont-suc-sel" class="nav-link active" href="#">
+                <a id="mont-suc-sel" class="nav-link" href="../WebPages/EmpleadoMontoSucursal.html">
                   <span data-feather="dollar-sign"></span>
                   Monto por sucursal
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.html">
+                <a id="mont-suc-paq-sel" class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.html">
                   <span data-feather="dollar-sign"></span>
                   Monto por sucursal por paquete
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.html">
+                <a id="mej-cli-sel" class="nav-link" href="../WebPages/EmpleadoMejoresClientes.html">
                   <span data-feather="users"></span>
                   Mejores clientes
                 </a>
@@ -93,35 +93,32 @@
           </div>
         </nav>
 
-        <!-- total recaudado -->
+        <!-- Lista del promedio pagado por usuario por paquetes -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h1">Sucursal Central</h1>
+            <h1 class="h2">Monto promedio para tipo de paquete</h1>
           </div>
-
-          <h2>Monto recaudado por sucursal</h2>
-
-          <h2>Seleccionar rango de fechas</h2>
+          <h4 class="h4"> Seleccionar rango de fechas de consulta </h4>
 
           <div class="row mb-3">
 
-            <div class="col-md-4">
-              <label  for="sucursal">Sucursal</label>
-              <select class="custom-select d-block w-100" id="sucursal" required>
-                <option value="">Escoja una sucursal...</option>
-                <option>Cartago</option>
-                <option>San José</option>
+            <div class="col-md-4 mb-3">
+              <label for="tipoPaq">Tipo de paquete</label>
+              <select class="custom-select d-block w-100" id="tipoPaq" required>
+                <option value="">Escoja un tipo...</option>
+                <option>Tipo 1</option>
+                <option>Tipo 2</option>
               </select>
               <div class="invalid-feedback">
-                Seleccione una sucursal
+                Seleccione un tipo de paquete
               </div>
             </div>
 
             <div class="col-md-4">
-              <label  for="datepicker8">Fecha de consulta</label>
-              <input  id="datepicker8" width="100%" required/>
+              <label  for="datepicker6">Fecha inicial</label>
+              <input  id="datepicker6" width="100%" required/>
               <script>
-                  $('#datepicker8').datepicker({
+                  $('#datepicker6').datepicker({
                       uiLibrary: 'bootstrap4'
                   });
               </script>
@@ -131,11 +128,11 @@
             </div>
 
             <div class="col-md-4 mb-3">
-              <label  for="datepicker9">Fecha de consulta</label>
-              <input  id="datepicker9" width="100%" required/>
+              <label  for="datepicker7">Fecha final</label>
+              <input  id="datepicker7" width="100%" required/>
 
               <script>
-                  $('#datepicker9').datepicker({
+                  $('#datepicker7').datepicker({
                       uiLibrary: 'bootstrap4'
                   });
               </script>
@@ -145,19 +142,25 @@
             </div>
           </div>
 
-          <button class="btn btn-primary btn-lg btn-block principal mb-3">Consultar</button>
+          <button id="obt-prom-usrs" class="btn btn-primary btn-lg btn-block principal mb-3">Consultar</button>
 
-          <div class="card">
-            <div class="card-header bg-primary text-white h4">
-              Monto recaudado
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Se recaudó</h5>
-              <p>15 $</p>
-            </div>
-          </div>
+          <table class="mt-4 table table-striped table-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-center w-25">Tip de Paquete</th>
+                <th class="text-center w-25">Monto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center align-middle w-25" >1,001</td>
+                <td class="text-center align-middle w-25">Lorem</td>
+              </tr>
+            </tbody>
+          </table>
+
         </main>
-        <!-- fin de total recaudado -->
+        <!-- Fin lista del promedio pagado por usuario por paquetes -->
 
       </div>
     </div>
@@ -199,6 +202,9 @@
     <script>
       $(document).ready(function(){
 
+        $("#obt-prom-usrs").click(function(){
+          $("#prom-usrs").attr("hidden", false);
+        });
 
       });
     </script>

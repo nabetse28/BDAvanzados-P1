@@ -99,8 +99,6 @@
             <h1 class="h2">Retirar paquete</h1>
           </div>
 
-          <h2>Proceso de retiro</h2>
-
           <div class="mb-3">
             <div class="card">
               <div class="card-header bg-primary text-white h4">
@@ -121,49 +119,38 @@
                   <button id="buscar-paqs" onclick="showListPaq" type="submit" class="btn btn-primary">Buscar paquetes del cliente</button>
                 </form>
               </div>
-              <ul id="lista-paq-cli" class="list-group list-group-flush retiro" hidden>
-                <button id="paq-desc-btn" type="button" class="list-group-item list-group-item-action">ID paquete 1</button>
-                <button type="button" class="list-group-item list-group-item-action">ID paquete 2</button>
-              </ul>
             </div>
           </div>
 
-          <div id="inf-paq" class="mb-3" hidden>
-            <div class="card">
-              <div class="card-header bg-primary text-white h4">
-                Información del paquete
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Id del paquete</li>
-                <li class="list-group-item">Sucursal</li>
-                <li class="list-group-item">Fecha de recepción</li>
-                <li class="list-group-item">Categoría de paquete</li>
-                <li class="list-group-item">Tipo de paquete</li>
-                <li class="list-group-item">Descripción</li>
-                <li class="list-group-item">Peso del paquete</li>
-                <li class="list-group-item">Valor del paquete</li>
-                <li class="list-group-item">Monto</li>
-              </ul>
-              <div class="card-body">
-                <h5 class="card-title">Retirar</h5>
-                <div class="container">
-                  <div class="row mb-3">
-                    <div class="col-4">
-                      <label class="principal" for="datepicker2">Seleccionar fecha de retiro</label>
-                      <input class="principal" id="datepicker2" width="300px" />
-                      <script>
-                          $('#datepicker2').datepicker({
-                              uiLibrary: 'bootstrap4'
-                          });
-                      </script>
-                    </div>
-                  </div>
-                </div>
+          <h4>Lista de paquetes</h4>
 
-                <a href="#" class="btn btn-primary">Retirar paquete</a>
-              </div>
-            </div>
-          </div>
+          <table class="mt-4 table table-striped table-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-center w-25">Número de Paquete </th>
+                <th class="text-center w-25">Descripción</th>
+                <th class="text-center w-25">Recoger</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center align-middle w-25" >1,001</td>
+                <td class="text-center align-middle w-25">Lorem</td>
+                <td class="text-center align-middle w-25"> <button onclick="showListPaq" class="btn btn-primary">Retirar Paquete</button> </td>
+              </tr>
+              <tr>
+                <td class="text-center align-middle w-25" >1,001</td>
+                <td class="text-center align-middle w-25">Lorem</td>
+                <td class="text-center align-middle w-25"> <button onclick="showListPaq" class="btn btn-primary">Retirar Paquete</button> </td>
+              </tr>
+              <tr>
+                <td class="text-center align-middle w-25" >1,001</td>
+                <td class="text-center align-middle w-25">Lorem</td>
+                <td class="text-center align-middle w-25"> <button onclick="showListPaq" class="btn btn-primary">Retirar Paquete</button> </td>
+              </tr>
+            </tbody>
+          </table>
+
         </main>
         <!-- fin de la opción de retirar un paquete -->
 
@@ -209,10 +196,6 @@
 
         $("#buscar-paqs").click(function(){
           $("#lista-paq-cli").attr("hidden", false);
-        });
-
-        $("#paq-desc-btn").click(function(){
-          $("#inf-paq").attr("hidden", false);
         });
 
       });
