@@ -1,7 +1,8 @@
 <?php
         
+        
         $serverName = "EHV\PRUEBAS"; //serverName\instanceName
-        $connectionInfo = array( "Database"=>"courierTEC", "UID"=>"sa", "PWD"=>"HVjose28", "CharacterSet"=>"UTF-8");
+        $connectionInfo = array( "Database"=>"Central_courierTEC", "UID"=>"sa", "PWD"=>"HVjose28", "CharacterSet"=>"UTF-8");
         $conn = sqlsrv_connect( $serverName, $connectionInfo);
         
         if( $conn == false ) {

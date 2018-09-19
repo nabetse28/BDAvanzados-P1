@@ -25,6 +25,7 @@ IdRolEmpleado INT NOT NULL
 );
 
 
+
 CREATE TABLE Cliente(
 CedulaCliente INT NOT NULL,
 IdSucursalCliente INT NOT NULL,
@@ -250,7 +251,7 @@ GO
 CREATE PROCEDURE SP_DESCRIPCION_FECHARETIRO_PAQUETES_CLIENTE
 @CEDCLIENTE AS INT
 AS
-SELECT P.Descripcion,P.FechaRetiro FROM Paquete P WHERE (P.CedulaCliente=@CEDCLIENTE AND P.IdSucursal=1)
+SELECT P.Descripcion,P.FechaRetiro,P.IdPaquete,P.IdSucursal,P.FechaRecepcion,P.MontoPagar,P.IdTipoPaquete,P.IdCategoriaPaquete,P.PesoPaquete FROM Paquete P WHERE (P.CedulaCliente=@CEDCLIENTE AND P.IdSucursal=1)
 GO 
 
 
