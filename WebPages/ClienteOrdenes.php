@@ -1,13 +1,34 @@
 <!doctype html>
 <?php
-    $serverName = "EHV\PRUEBAS"; //serverName\instanceName
-    $connectionInfo = array( "Database"=>"courierTEC", "UID"=>"sa", "PWD"=>"HVjose28", "CharacterSet"=>"UTF-8");
-    $conn = sqlsrv_connect( $serverName, $connectionInfo);
-    
-    if( $conn == false ){
-        echo "Connection could not be established.<br/>";
-        die( print_r( sqlsrv_errors(), true));
+    if($_COOKIE['Provincia'] == "Cartago"){
+      $serverName = "RONNY\PRUEBAS"; //serverName\instanceName
+      $connectionInfo = array( "Database"=>"Cartago_courierTEC", "UID"=>"sa", "PWD"=>"zxcvbnm", "CharacterSet"=>"UTF-8");
+      $conn = sqlsrv_connect( $serverName, $connectionInfo);
+      
+      if( $conn == false ){
+          echo "Connection could not be established.<br/>";
+          die( print_r( sqlsrv_errors(), true));
+      }
+    }else if($_COOKIE['Provincia'] == "San Jose"){
+      $serverName = "R2D2\MSSQLSERVER1"; //serverName\instanceName
+      $connectionInfo = array( "Database"=>"SanJose_courierTEC", "UID"=>"sa", "PWD"=>"zxcvbnm", "CharacterSet"=>"UTF-8");
+      $conn = sqlsrv_connect( $serverName, $connectionInfo);
+      
+      if( $conn == false ){
+          echo "Connection could not be established.<br/>";
+          die( print_r( sqlsrv_errors(), true));
+      }
+    }else{
+      $serverName = "EHV\PRUEBAS"; //serverName\instanceName
+      $connectionInfo = array( "Database"=>"Central_courierTEC", "UID"=>"sa", "PWD"=>"HVjose28", "CharacterSet"=>"UTF-8");
+      $conn = sqlsrv_connect( $serverName, $connectionInfo);
+      
+      if( $conn == false ){
+          echo "Connection could not be established.<br/>";
+          die( print_r( sqlsrv_errors(), true));
+      }
     }
+    
 
 ?>
 <html lang="en">
@@ -83,7 +104,7 @@
                 <th class="text-center">Tipo</th>
                 <th class="text-center">Categoria</th>
                 <th class="text-center">Peso (kg)</th>
-                <th class="text-center">Valor del Paquete</th>
+                
                 <th class="text-center">Monto a Pagar</th>
                 <th class="text-center">Fecha Recepcion</th>
                 <th class="text-center">Fecha Recojo</th>
@@ -92,7 +113,7 @@
 
             <?php 
                 $Cedula = $_COOKIE['Cedula'];
-                $consulta = "EXECUTE PAQUETESCLIENTE $Cedula";
+                $consulta = "EXECUTE SP_DESCRIPCION_FECHARETIRO_PAQUETES_CLIENTE $Cedula";
 
                 $paquetes = sqlsrv_query($conn,$consulta);
 
@@ -144,7 +165,7 @@
                     }
                 ?></td>
                 <td class="text-center"><?php echo $row['PesoPaquete']; ?></td>
-                <td class="text-center"><?php echo $row['ValorPaquete']; ?></td>
+                
                 <td class="text-center"><?php echo $row['MontoPagar']; ?></td>
                 <td class="text-center"><?php echo date_format($row['FechaRecepcion'],'j/n/o'); ?></td>
                 <td class="text-center"><?php 

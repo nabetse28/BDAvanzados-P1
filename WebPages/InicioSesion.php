@@ -50,6 +50,23 @@ include('Connection.php');
           <label for="inputPassword">Contraseña</label>
         </div>
 
+        <div class="form-label-group">
+        <div class="mb-3">
+              <label for="Rol"></label>
+              <select class="custom-select d-block w-100" name="Rol" id="Rol" required>
+                <option>Cliente</option>
+                <option>Empleado</option>
+                <option>Administrador</option>
+              </select>
+              <div class="invalid-feedback">
+                Por favor seleccione una Provincia.
+              </div>
+            </div>
+        </div>
+
+        
+          
+
         <button class="btn btn-lg btn-primary btn-block mt-5" name="InicioSesion" type="submit">Iniciar Sesión</button>
 
         <div class="text-center mt-5">
@@ -63,43 +80,67 @@ include('Connection.php');
 
     <?php 
         if(isset($_POST['InicioSesion'])){
-            $Password = $_POST['Password'];
-            $Correo = $_POST['Correo'];
+          $Password = $_POST['Password'];
+          $Correo = $_POST['Correo'];
+          $Rol = $_POST['Rol'];
             
-            
-            
-            $GetUsuarios = "EXECUTE LOGINUSUARIO '$Correo','$Password'";
-
-            $ejecutar = sqlsrv_query($conn, $GetUsuarios);
-
-            if( $ejecutar === false) {
-                die( print_r( sqlsrv_errors(), true) );
-            }else{
-                $row = sqlsrv_fetch_array( $ejecutar, SQLSRV_FETCH_ASSOC);
-            
-                if(($row['IdRol'] == 1) || ($row['IdRol'] == 2)){
-                    setcookie("Nombre",$row['NombreUsuario'],time()+3600);
-                    setcookie("Apellido",$row['ApellidosUsuario'],time()+3600);
-                    setcookie("Cedula",$row['CedulaUsuario'],time()+3600);
-                    setcookie("IdSucursal",$row['IdSucursal'],time()+3600);
-                    setcookie("Correo",$row['CorreoUsuario'],time()+3600);
-                    setcookie("Telefono",$row['TelefonoUsuario'],time()+3600);
-
-                    echo "<script>window.location = 'ClienteOrdenes.php'</script>";
-                }if($row['IdRol'] == 3 ){
-                    setcookie("Nombre",$row['NombreUsuario'],time()+3600);
-                    setcookie("Apellido",$row['ApellidosUsuario'],time()+3600);
-                    setcookie("Cedula",$row['CedulaUsuario'],time()+3600);
-                    setcookie("IdSucursal",$row['IdSucursal'],time()+3600);
-                    setcookie("Correo",$row['CorreoUsuario'],time()+3600);
-                    setcookie("Telefono",$row['TelefonoUsuario'],time()+3600);
-                    setcookie("IdTipoCliente",$row['IdTipoCliente'],time()+3600);
-                    setcookie("Provincia",$row['ProvinciaCliente'],time()+3600);
-                    setcookie("Cuenta",$row['NumeroCuentaCliente'],time()+3600);
-                    
-                    echo "<script>window.location = 'ClienteHome.php'</script>";
-                }
+            if($Rol == "Cliente"){
+              $Rol = 3;
+            }else if($Rol == "Empleado"){
+              $Rol = 2;
+            }else if($Rol == "Administrador"){
+              $Rol = 1;
             }
+            
+            
+            if($Rol == 3){
+              $GetUsuarios = "EXECUTE SP_LOGINCLIENTE '$Correo','$Password'";
+
+              $ejecutar = sqlsrv_query($conn, $GetUsuarios);
+
+              if( $ejecutar == false) {
+                die( print_r( sqlsrv_errors(), true) );
+              }else{
+                $row = sqlsrv_fetch_array( $ejecutar, SQLSRV_FETCH_ASSOC);
+
+                setcookie("Nombre",$row['NombreCliente'],time()+3600);
+                setcookie("Apellido",$row['ApellidosCliente'],time()+3600);
+                setcookie("Cedula",$row['CedulaCliente'],time()+3600);
+                setcookie("IdSucursal",$row['IdSucursalCliente'],time()+3600);
+                setcookie("Correo",$row['CorreoCliente'],time()+3600);
+                setcookie("Telefono",$row['TelefonoCliente'],time()+3600);
+                setcookie("IdTipoCliente",$row['IdTipoCliente'],time()+3600);
+                setcookie("Provincia",$row['ProvinciaCliente'],time()+3600);
+                setcookie("Cuenta",$row['NumeroCuentaCliente'],time()+3600);
+                    
+                echo "<script>window.location = 'ClienteHome.php'</script>";
+               
+              }
+            }else{
+              $GetUsuarios = "EXECUTE SP_LOGINEMPLEADO '$Correo','$Password'";
+
+              $ejecutar = sqlsrv_query($conn, $GetUsuarios);
+
+              if( $ejecutar == false) {
+                die( print_r( sqlsrv_errors(), true) );
+              }else{
+                $row = sqlsrv_fetch_array( $ejecutar, SQLSRV_FETCH_ASSOC);
+
+
+                setcookie("Nombre",$row['NombreEmpleado'],time()+3600);
+                setcookie("Apellido",$row['ApellidosEmpleado'],time()+3600);
+                setcookie("Cedula",$row['CedulaEmpleado'],time()+3600);
+                setcookie("IdSucursal",$row['IdSucursalEmpleado'],time()+3600);
+                setcookie("Correo",$row['CorreoEmpleado'],time()+3600);
+                setcookie("Telefono",$row['TelefonoEmpleado'],time()+3600);
+
+                echo "<script>window.location = 'EmpleadoHome.php'</script>";
+
+                
+              }
+
+              
+          }   
         }
     ?>
 
