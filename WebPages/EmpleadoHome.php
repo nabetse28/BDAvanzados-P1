@@ -1,4 +1,7 @@
 <!doctype html>
+<?php
+    include('Connection.php');
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -36,55 +39,55 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="../WebPages/EmpleadoHome.php">
                   <span data-feather="home"></span>
                   Principal
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoRetirarPaquete.html">
+                <a class="nav-link" href="../WebPages/EmpleadoRetirarPaquete.php">
                   <span data-feather="shopping-bag"></span>
                   Retirar Paquete
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoDineroRecaudado.html">
+                <a class="nav-link" href="../WebPages/EmpleadoDineroRecaudado.php">
                   <span data-feather="dollar-sign"></span>
                   Dinero Recaudado
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.html">
+                <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.php">
                   <span data-feather="calendar"></span>
                   Paquetes por Mes
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.php">
                   <span data-feather="trending-up"></span>
                   Monto Promedio
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.php">
                   <span data-feather="circle"></span>
                   Monto Paquete por Tipo
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.php">
                   <span data-feather="dollar-sign"></span>
                   Monto por Sucursal
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.php">
                   <span data-feather="dollar-sign"></span>
                   Monto Sucursal por Paquete
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.php">
                   <span data-feather="users"></span>
                   Mejores Clientes
                 </a>
@@ -167,9 +170,16 @@
               <div class="col-md-6 mb-3">
                 <label for="tipoPaq">Tipo de paquete</label>
                 <select class="custom-select d-block w-100" name="TipoPaquete" id="tipoPaq" required>
-                  <option value="">Escoja un tipo...</option>
-                  <option>Tipo 1</option>
-                  <option>Tipo 2</option>
+                  <option value="">Escoja un Tipo...</option>
+                  <option>Electronica</option>
+                  <option>Ropa</option>
+                  <option>Juguetes</option>
+                  <option>Hogar</option>
+                  <option>Comida</option>
+                  <option>Baterias</option>
+                  <option>Quimicos</option>
+                  <option>Herramientas</option>
+                  
                 </select>
                 <div class="invalid-feedback">
                   Seleccione un tipo de paquete
@@ -179,28 +189,16 @@
               <div class="col-md-6 mb-3">
                 <label for="catPaq">Categoría del paquete</label>
                 <select class="custom-select d-block w-100" name="CategoriaPaquete" id="catPaq" required>
-                  <option value="">Escoja una categoría...</option>
-                  <option>Categoría 1</option>
-                  <option>Categoría 2</option>
+                  <option value="">Escoja una Categoría...</option>
+                  <option>Regular</option>
+                  <option>Especial</option>
                 </select>
                 <div class="invalid-feedback">
                   Seleccione una categoría de paquete
                 </div>
               </div>
 
-              <!--<div class="col-md-3 mb-3">
-                <label  for="datepicker">Fecha de recepción</label>
-                <input  id="datepicker" name="FechaRecepcion" width="137%" required/>
-                Date picker script 
-                <script>
-                    $('#datepicker').datepicker({
-                        uiLibrary: 'bootstrap4'
-                    });
-                </script>
-                <div class="invalid-feedback">
-                  Debe especificar una fecha de recepción
-                </div>
-              </div>-->
+              
             </div>
 
             <hr class="mb-4">
@@ -209,7 +207,67 @@
           </form>
         </main>
         <!-- fin de la parte principal -->
+        <?php
+            if(isset($_POST['AgregarPaquete'])){
 
+                if($_POST['Sucursal'] == "Heredia"){
+                    $IdSucursal = 1;
+                }else if($_POST['Sucursal'] == "Cartago"){
+                    $IdSucursal = 2;
+                }else if($_POST['Sucursal']== "San Jose"){
+                    $IdSucursal = 3;
+                }
+
+                if($_POST['TipoPaquete'] == "Electronica"){
+                    $IdTipoPaquete = 1;
+                }else if($_POST['TipoPaquete'] == "Ropa"){
+                    $IdTipoPaquete = 2;
+                }else if($_POST['TipoPaquete'] == "Juguetes"){
+                    $IdTipoPaquete = 3;
+                }else if($_POST['TipoPaquete'] == "Hogar"){
+                    $IdTipoPaquete = 4;
+                }else if($_POST['TipoPaquete'] == "Comida"){
+                    $IdTipoPaquete = 5;
+                }else if($_POST['TipoPaquete'] == "Baterias"){
+                    $IdTipoPaquete = 6;
+                }else if($_POST['TipoPaquete'] == "Quimicos"){
+                    $IdTipoPaquete = 7;
+                }else if($_POST['TipoPaquete'] == "Herramientas"){
+                    $IdTipoPaquete = 8;
+                }
+
+                if($_POST['CategoriaPaquete']== "Regular"){
+                    $CategoriaPaquete = 1;
+                }else if($_POST['CategoriaPaquete']== "Especial"){
+                    $CategoriaPaquete = 2;
+                }
+
+                
+                $MontoPaquete = $_POST['MontoPaquete'];
+                $ValorPaquete = $_POST['ValorPaquete'];
+                $Peso = $_POST['Peso'];
+                $Descripcion = $_POST['Descripcion'];
+                $email = $_POST['email'];
+                $Identificacion = $_POST['Cedula'];
+                $Cedula = intval($Identificacion);
+
+                
+                
+                $CrearPaquete = "EXECUTE SP_CREAR_PAQUETE $Cedula,$CategoriaPaquete,$IdTipoPaquete,'$Descripcion',$Peso,$ValorPaquete,$MontoPaquete";
+                
+                $ejecutar = sqlsrv_query($conn, $CrearPaquete);
+
+                if($ejecutar == false){
+                    die( print_r( sqlsrv_errors(), true) );
+                }else{
+                    echo "<script>window.alert('SI se registro correctamente')</script>";
+                    echo '<script>window.location = "EmpleadoHome.php"</script>';
+                }
+                
+
+
+            }
+        ?>
       </div>
     </div>
 

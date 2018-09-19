@@ -142,7 +142,7 @@ include("Connection.php");
         }
 
         
-        $insert = "EXECUTE USUARIOCLIENTE $Identificacion,'$Nombre','$Apellido',$IdSucursal,'$email','$Contraseña',$Telefono,$Cuenta,'$Provincia'";
+        $insert = "EXECUTE SP_INSERT_CLIENTE_SUCURSAL $Identificacion,$IdSucursal,'$Nombre','$Apellido',$Cuenta,$Telefono,'$Provincia','$email','$Contraseña'";
 
 
         $ejecutar = sqlsrv_query($conn, $insert);

@@ -1,17 +1,17 @@
 <!doctype html>
 <?php
-    if($_COOKIE['Provincia'] == "Cartago"){
+    if($_COOKIE['IdSucursal'] == 2){
       $serverName = "RONNY\PRUEBAS"; //serverName\instanceName
-      $connectionInfo = array( "Database"=>"Cartago_courierTEC", "UID"=>"sa", "PWD"=>"zxcvbnm", "CharacterSet"=>"UTF-8");
+      $connectionInfo = array( "Database"=>"courierTEC", "UID"=>"sa", "PWD"=>"zxcvbnm", "CharacterSet"=>"UTF-8");
       $conn = sqlsrv_connect( $serverName, $connectionInfo);
       
       if( $conn == false ){
           echo "Connection could not be established.<br/>";
           die( print_r( sqlsrv_errors(), true));
       }
-    }else if($_COOKIE['Provincia'] == "San Jose"){
+    }else if($_COOKIE['IdSucursal'] == 2){
       $serverName = "R2D2\MSSQLSERVER1"; //serverName\instanceName
-      $connectionInfo = array( "Database"=>"SanJose_courierTEC", "UID"=>"sa", "PWD"=>"zxcvbnm", "CharacterSet"=>"UTF-8");
+      $connectionInfo = array( "Database"=>"courierTEC", "UID"=>"sa", "PWD"=>"zxcvbnm", "CharacterSet"=>"UTF-8");
       $conn = sqlsrv_connect( $serverName, $connectionInfo);
       
       if( $conn == false ){
@@ -19,8 +19,8 @@
           die( print_r( sqlsrv_errors(), true));
       }
     }else{
-      $serverName = "EHV\PRUEBAS"; //serverName\instanceName
-      $connectionInfo = array( "Database"=>"Central_courierTEC", "UID"=>"sa", "PWD"=>"HVjose28", "CharacterSet"=>"UTF-8");
+      $serverName = "DESKTOP-FEHR364"; //serverName\instanceName
+      $connectionInfo = array( "Database"=>"courierTEC", "UID"=>"sa", "PWD"=>"elpisuicas", "CharacterSet"=>"UTF-8");
       $conn = sqlsrv_connect( $serverName, $connectionInfo);
       
       if( $conn == false ){

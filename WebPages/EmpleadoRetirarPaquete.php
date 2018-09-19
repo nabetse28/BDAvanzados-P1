@@ -1,4 +1,7 @@
 <!doctype html>
+<?php
+    include('Connection.php');
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -34,59 +37,59 @@
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
-            <ul class="nav flex-column">
+          <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoHome.html">
+                <a class="nav-link" href="../WebPages/EmpleadoHome.php">
                   <span data-feather="home"></span>
                   Principal
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="../WebPages/EmpleadoRetirarPaquete.php">
                   <span data-feather="shopping-bag"></span>
-                  Retirar paquete
+                  Retirar Paquete
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoDineroRecaudado.html">
+                <a class="nav-link" href="../WebPages/EmpleadoDineroRecaudado.php">
                   <span data-feather="dollar-sign"></span>
-                  Dinero recaudado
+                  Dinero Recaudado
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.html">
+                <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.php">
                   <span data-feather="calendar"></span>
-                  Paquetes por mes
+                  Paquetes por Mes
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.php">
                   <span data-feather="trending-up"></span>
                   Monto Promedio
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.php">
                   <span data-feather="circle"></span>
-                  Monto de paquete por tipo
+                  Monto Paquete por Tipo
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.php">
                   <span data-feather="dollar-sign"></span>
-                  Monto por sucursal
+                  Monto por Sucursal
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.php">
                   <span data-feather="dollar-sign"></span>
-                  Monto por sucursal por paquete
+                  Monto Sucursal por Paquete
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.html">
+                <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.php">
                   <span data-feather="users"></span>
-                  Mejores clientes
+                  Mejores Clientes
                 </a>
               </li>
             </ul>
@@ -134,23 +137,60 @@
             </thead>
             <tbody>
 
-              
+              <?php 
+                if(isset($_GET['Buscar'])){
+                    $Cedula = $_GET['Cedula'];
+
+                    $GetPaquetesCliente = "EXECUTE SP_DESCRIPCION_FECHARETIRO_PAQUETES_CLIENTE $Cedula";
+
+                    $ejecutar1 = sqlsrv_query($conn, $GetPaquetesCliente);
+
+                    if($ejecutar1 == false){
+                        die( print_r( sqlsrv_errors(), true) );
+                    }else{
+
+                        while($row = sqlsrv_fetch_array( $ejecutar1, SQLSRV_FETCH_ASSOC) ){
+                            $IdPaquete = $row['IdPaquete'];
+                            $Descripcion =  $row['Descripcion'];
+                        
+                    
+              ?>
 
               <tr>
-                <td class="text-center align-middle w-25" >1,001</td>
-                <td class="text-center align-middle w-25">Lorem</td>
-                <td class="text-center align-middle w-25"> 
-                  <button onclick="showListPaq" class="btn btn-primary" method="POST" name="Boton">Retirar Paquete</button> 
-                </td>
+                <td class="text-center align-middle w-25" ><?php echo $IdPaquete; ?></td>
+                <td class="text-center align-middle w-25"><?php echo $Descripcion; ?></td>
+                <td class="text-center align-middle w-25"><a href="EmpleadoRetirarPaquete.php?Boton=<?php echo $IdPaquete; ?>">Retirar Paquete</a></td>
               </tr>
 
+              <?php
+                        }
+                    }
+                }
+              ?>
               
             </tbody>
           </table>
 
         </main>
         <!-- fin de la opción de retirar un paquete -->
+        <?php 
+            if(isset($_GET['Boton'])){
+                
+                $IdPaquete = $_GET['Boton'];
 
+                $Venta = "EXECUTE SP_VENTA '$IdPaquete'";
+
+                $ejecutar2 = sqlsrv_query($conn, $Venta);
+
+                if($ejecutar2 == false){
+                    die( print_r( sqlsrv_errors(), true) );
+                }else{
+                    echo "<script> window.alert('Se retiro el paquete') </script>";
+                    echo '<script> window.location = "EmpleadoRetirarPaquete.php"</script>';
+                }
+
+            }
+        ?>
       </div>
     </div>
 
