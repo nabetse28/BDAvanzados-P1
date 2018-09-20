@@ -1,6 +1,7 @@
 <!doctype html>
 <?php 
-include("Connection.php");
+//include("Connection.php");
+
 ?>
 <html lang="en">
 
@@ -139,6 +140,37 @@ include("Connection.php");
           $IdSucursal = 3;
         }else{
           $IdSucursal = 1;
+        }
+
+        if($IdSucursal == 2){
+          $serverName = "RONNY\PRUEBAS"; //serverName\instanceName
+          $connectionInfo = array( "Database"=>"Cartago_courierTEC", "UID"=>"sa", "PWD"=>"zxcvbnm", "CharacterSet"=>"UTF-8");
+          $conn = sqlsrv_connect( $serverName, $connectionInfo);
+          
+          if( $conn == false ){
+              echo "Connection could not be established.<br/>";
+              die( print_r( sqlsrv_errors(), true));
+          }
+        }else if($IdSucursal == 1){
+          $serverName = "R2D2\MSSQLSERVER1"; //serverName\instanceName
+          //$serverName = "EHV\PRUEBAS";
+          $connectionInfo = array( "Database"=>"Central_courierTEC", "UID"=>"sa", "PWD"=>"zxcvbnm", "CharacterSet"=>"UTF-8");
+          //$connectionInfo = array( "Database"=>"Central_courierTEC", "UID"=>"sa", "PWD"=>"HVjose28", "CharacterSet"=>"UTF-8");
+          $conn = sqlsrv_connect( $serverName, $connectionInfo);
+          
+          if( $conn == false ){
+              echo "Connection could not be established.<br/>";
+              die( print_r( sqlsrv_errors(), true));
+          }
+        }else if($IdSucursal == 3){
+          $serverName = "DESKTOP-FEHR364"; //serverName\instanceName
+          $connectionInfo = array( "Database"=>"courierTEC", "UID"=>"sa", "PWD"=>"elpisuicas", "CharacterSet"=>"UTF-8");
+          $conn = sqlsrv_connect( $serverName, $connectionInfo);
+          
+          if( $conn == false ){
+              echo "Connection could not be established.<br/>";
+              die( print_r( sqlsrv_errors(), true));
+          }
         }
 
         

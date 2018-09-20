@@ -1,6 +1,7 @@
 <!doctype html>
 <?php
-    include('Connection.php');
+    //include('ConnectionSucursal.php');  
+    include('ConnectionPrueba.php');
 ?>
 <html lang="en">
   <head>
@@ -28,7 +29,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Nombre de Empleado</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Cerrar sesión</a>
+          <a class="nav-link" href="../WebPages/InicioSesion.php">Cerrar sesión</a>
         </li>
       </ul>
     </nav>
@@ -38,61 +39,56 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
           <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoHome.php">
-                  <span data-feather="home"></span>
-                  Principal
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="../WebPages/EmpleadoRetirarPaquete.php">
-                  <span data-feather="shopping-bag"></span>
-                  Retirar Paquete
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoDineroRecaudado.php">
-                  <span data-feather="dollar-sign"></span>
-                  Dinero Recaudado
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.php">
-                  <span data-feather="calendar"></span>
-                  Paquetes por Mes
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.php">
-                  <span data-feather="trending-up"></span>
-                  Monto Promedio
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.php">
-                  <span data-feather="circle"></span>
-                  Monto Paquete por Tipo
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.php">
-                  <span data-feather="dollar-sign"></span>
-                  Monto por Sucursal
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.php">
-                  <span data-feather="dollar-sign"></span>
-                  Monto Sucursal por Paquete
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.php">
-                  <span data-feather="users"></span>
-                  Mejores Clientes
-                </a>
-              </li>
-            </ul>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoHome.php">
+                      <span data-feather="home"></span>
+                      Principal
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="../WebPages/EmpleadoRetirarPaquete.php">
+                      <span data-feather="shopping-bag"></span>
+                      Retirar Paquete
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="../WebPages/EmpleadoDineroRecaudado.php">
+                      <span data-feather="dollar-sign"></span>
+                      Dinero Recaudado
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.php">
+                      <span data-feather="calendar"></span>
+                      Cantidad Paquetes por Periodo (Clientes)
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.php">
+                      <span data-feather="trending-up"></span>
+                      Monto Promedio Paquetes por Periodo (Clientes)
+                    </a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.php">
+                      <span data-feather="dollar-sign"></span>
+                      Monto por Sucursal
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.php">
+                      <span data-feather="dollar-sign"></span>
+                      Monto Sucursal por Paquete
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.php">
+                      <span data-feather="users"></span>
+                      Mejores Clientes
+                    </a>
+                  </li>
+                </ul>
           </div>
         </nav>
 
@@ -141,7 +137,7 @@
                 if(isset($_GET['Buscar'])){
                     $Cedula = $_GET['Cedula'];
 
-                    $GetPaquetesCliente = "EXECUTE SP_DESCRIPCION_FECHARETIRO_PAQUETES_CLIENTE $Cedula";
+                    $GetPaquetesCliente = "EXECUTE SP_DESCRIPCION_PAQUETES_PENDIENTES_CLIENTE $Cedula";
 
                     $ejecutar1 = sqlsrv_query($conn, $GetPaquetesCliente);
 

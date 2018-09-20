@@ -1,4 +1,8 @@
 <!doctype html>
+<?php
+    //include('ConnectionSucursal.php');
+    include('ConnectionPrueba.php');
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -25,7 +29,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Nombre de Empleado</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Cerrar sesión</a>
+          <a class="nav-link" href="../WebPages/InicioSesion.php">Cerrar sesión</a>
         </li>
       </ul>
     </nav>
@@ -34,7 +38,7 @@
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
-              <ul class="nav flex-column">
+          <ul class="nav flex-column">
                   <li class="nav-item">
                     <a class="nav-link" href="../WebPages/EmpleadoHome.php">
                       <span data-feather="home"></span>
@@ -54,23 +58,18 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="../WebPages/EmpleadoPaquetesMes.php">
+                    <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.php">
                       <span data-feather="calendar"></span>
-                      Paquetes por Periodo
+                      Cantidad Paquetes por Periodo (Clientes)
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.php">
+                    <a class="nav-link active" href="../WebPages/EmpleadoMontoPromedio.php">
                       <span data-feather="trending-up"></span>
-                      Monto Promedio
+                      Monto Promedio Paquetes por Periodo (Clientes)
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.php">
-                      <span data-feather="circle"></span>
-                      Monto Paquete por Tipo
-                    </a>
-                  </li>
+                  
                   <li class="nav-item">
                     <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.php">
                       <span data-feather="dollar-sign"></span>
@@ -93,66 +92,98 @@
           </div>
         </nav>
 
-        <!-- Lista de paquetes por usuario por rango de fechas -->
+        <!-- Lista del promedio pagado por usuario por paquetes -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Paquetes por mes</h1>
+            <h1 class="h2">Monto Promedio por Paquetes Cliente</h1>
           </div>
-
           <h4 class="h4"> Seleccionar rango de fechas de consulta </h4>
 
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <label  for="datepicker4">Fecha de consulta</label>
-              <input  id="datepicker4" width="100%" required/>
-              <script>
-                  $('#datepicker4').datepicker({
-                      uiLibrary: 'bootstrap4'
-                  });
-              </script>
-              <div class="invalid-feedback principal">
-                Debe especificar una fecha
-              </div>
+          <form action="">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                  <label  for="datepicker6">Fecha Inicial</label>
+                  <input name="FI"  id="datepicker6" width="100%" required/>
+                  <script>
+                    $('#datepicker6').datepicker({
+                        uiLibrary: 'bootstrap4'
+                    });
+                  </script>
+                  <div class="invalid-feedback principal">
+                      Debe especificar una fecha
+                  </div>
+                </div>
+
+                <div class="col-md-4 offset-4 mb-3">
+                  <label  for="datepicker7">Fecha Final</label>
+                  <input name="FF"  id="datepicker7" width="100%" required/>
+
+                  <script>
+                    $('#datepicker7').datepicker({
+                        uiLibrary: 'bootstrap4'
+                      });
+                  </script>
+                  <div class="invalid-feedback principal">
+                     Debe especificar una fecha
+                  </div>
+                </div>
+                <button method="GET" name="FechaConsultar" id="obt-prom-usrs" class="btn btn-primary btn-lg btn-block principal mb-3">Consultar</button>
             </div>
-
-            <div class="col-md-4 offset-4 mb-3">
-              <label  for="datepicker5">Fecha de consulta</label>
-              <input  id="datepicker5" width="100%" required/>
-
-              <script>
-                  $('#datepicker5').datepicker({
-                      uiLibrary: 'bootstrap4'
-                  });
-              </script>
-              <div class="invalid-feedback principal">
-                Debe especificar una fecha
-              </div>
-            </div>
-          </div>
-
-          <button id="btn-paq-mes" class="btn btn-primary btn-lg btn-block principal mb-3">Consultar</button>
-
+          </form>
+            
           <table class="mt-4 table table-striped table-sm">
             <thead class="thead-dark">
               <tr>
                 <th class="text-center w-25">Cédula</th>
                 <th class="text-center w-25">Nombre</th>
                 <th class="text-center w-25">Apellidos</th>
-                <th class="text-center w-25">Cantidad</th>
+                <th class="text-center w-25">Promedio</th>
               </tr>
             </thead>
+            <?php
+                if(isset($_GET['FechaConsultar'])){
+                    $FI = strtotime( $_GET['FI']);
+                    $FF = strtotime($_GET['FF']);
+                    
+                    $FInicial = date('Y-m-d',$FI);
+                    $FFinal = date('Y-m-d',$FF);
+                    
+    
+                    /*echo $FInicial;
+                    echo $FFinal;*/
+    
+                    $GetPromedioPaq = "EXECUTE SP_MONTOPROMEDIO_PAQUETES_PERIODO '$FInicial','$FFinal'";
+    
+                    $ejecutar = sqlsrv_query($conn,$GetPromedioPaq);
+    
+                    if($ejecutar == false){
+                        die( print_r( sqlsrv_errors(), true) );
+                    }else{
+                        while($row = sqlsrv_fetch_array( $ejecutar, SQLSRV_FETCH_ASSOC) ){
+                            $Nombre = $row['NombreCliente'];
+                            $Apellido = $row['ApellidosCliente'];
+                            $Cedula = $row['CedulaCliente'];
+                            $Promedio = number_format($row['Promedio'],2,".",".");
+                        
+            ?>
             <tbody>
               <tr>
-                <td class="text-center align-middle w-25" >1,001</td>
-                <td class="text-center align-middle w-25">Lorem</td>
-                <td class="text-center align-middle w-25">bla bla</td>
-                <td class="text-center align-middle w-25">bla bla</td>
+              <td class="text-center align-middle w-25"><?php echo $Cedula ?></td>
+                <td class="text-center align-middle w-25" ><?php echo $Nombre ?></td>
+                <td class="text-center align-middle w-25"><?php echo $Apellido ?></td>
+                
+                <td class="text-center align-middle w-25"><?php echo "₡ $Promedio" ?></td>
               </tr>
             </tbody>
+            <?php
+                        }
+                    }
+                }
+            ?>
           </table>
 
         </main>
-        <!-- Fin de lista de paquetes por usuario por rango de fechas -->
+        <!-- Fin lista del promedio pagado por usuario por paquetes -->
 
       </div>
     </div>
@@ -194,8 +225,8 @@
     <script>
       $(document).ready(function(){
 
-        $("#btn-paq-mes").click(function(){
-          $("#usrs-paqs").attr("hidden", false);
+        $("#obt-prom-usrs").click(function(){
+          $("#prom-usrs").attr("hidden", false);
         });
 
       });

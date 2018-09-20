@@ -1,6 +1,8 @@
 <!doctype html>
 <?php 
-include('Connection.php');
+//include('Connection.php');
+include('ConnectionPrueba.php');
+
 ?>
 <html lang="en">
   <head>

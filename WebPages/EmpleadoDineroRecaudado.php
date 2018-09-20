@@ -1,4 +1,8 @@
 <!doctype html>
+<?php
+    //include('ConnectionSucursal.php');
+    include('ConnectionPrueba.php');
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -34,7 +38,7 @@
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
-              <ul class="nav flex-column">
+          <ul class="nav flex-column">
                   <li class="nav-item">
                     <a class="nav-link" href="../WebPages/EmpleadoHome.php">
                       <span data-feather="home"></span>
@@ -48,29 +52,24 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link " href="../WebPages/EmpleadoDineroRecaudado.php">
+                    <a class="nav-link active" href="../WebPages/EmpleadoDineroRecaudado.php">
                       <span data-feather="dollar-sign"></span>
                       Dinero Recaudado
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="../WebPages/EmpleadoPaquetesMes.php">
+                    <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.php">
                       <span data-feather="calendar"></span>
-                      Paquetes por Periodo
+                      Cantidad Paquetes por Periodo (Clientes)
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.php">
                       <span data-feather="trending-up"></span>
-                      Monto Promedio
+                      Monto Promedio de Paquetes
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.php">
-                      <span data-feather="circle"></span>
-                      Monto Paquete por Tipo
-                    </a>
-                  </li>
+                  
                   <li class="nav-item">
                     <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.php">
                       <span data-feather="dollar-sign"></span>
@@ -93,34 +92,30 @@
           </div>
         </nav>
 
-        <!-- Lista de paquetes por usuario por rango de fechas -->
+        <!-- Dinero recaudado -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Paquetes por mes</h1>
+            <h1 class="h2">Dinero recaudado</h1>
           </div>
 
-          <h4 class="h4"> Seleccionar rango de fechas de consulta </h4>
-
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <label  for="datepicker4">Fecha de consulta</label>
-              <input  id="datepicker4" width="100%" required/>
-              <script>
-                  $('#datepicker4').datepicker({
-                      uiLibrary: 'bootstrap4'
-                  });
-              </script>
-              <div class="invalid-feedback principal">
-                Debe especificar una fecha
+          <!--<div class="mb-3 row">
+            <div class="col-md-4 mb-3">
+              <label for="sucursal">Sucursal</label>
+              <select class="custom-select d-block w-100" id="sucursal" required>
+                <option value="">Escoja una sucursal...</option>
+                <option>Cartago</option>
+                <option>San José</option>
+              </select>
+              <div class="invalid-feedback">
+                Seleccione una sucursal
               </div>
             </div>
 
-            <div class="col-md-4 offset-4 mb-3">
-              <label  for="datepicker5">Fecha de consulta</label>
-              <input  id="datepicker5" width="100%" required/>
-
+            <div class="col-md-12 offset-4 mb-3">
+              <label  for="datepicker3">Fecha de consulta</label>
+              <input  id="datepicker3" width="100%" required/>
               <script>
-                  $('#datepicker5').datepicker({
+                  $('#datepicker3').datepicker({
                       uiLibrary: 'bootstrap4'
                   });
               </script>
@@ -129,30 +124,34 @@
               </div>
             </div>
           </div>
+          <button name="Dinero" id="btn-con-dinrec" class="btn btn-primary btn-lg btn-block principal mb-3" type="submit">Consultar ganancias</button>-->
 
-          <button id="btn-paq-mes" class="btn btn-primary btn-lg btn-block principal mb-3">Consultar</button>
+          <div id="dinero-rec-card" class="card" >
+            <?php 
+                $DineroRecaudado = "EXECUTE SP_DINERO_RECAUDADO";
 
-          <table class="mt-4 table table-striped table-sm">
-            <thead class="thead-dark">
-              <tr>
-                <th class="text-center w-25">Cédula</th>
-                <th class="text-center w-25">Nombre</th>
-                <th class="text-center w-25">Apellidos</th>
-                <th class="text-center w-25">Cantidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center align-middle w-25" >1,001</td>
-                <td class="text-center align-middle w-25">Lorem</td>
-                <td class="text-center align-middle w-25">bla bla</td>
-                <td class="text-center align-middle w-25">bla bla</td>
-              </tr>
-            </tbody>
-          </table>
+                $ejecutar = sqlsrv_query($conn, $DineroRecaudado);
 
+                if($ejecutar == true){
+                    $row = sqlsrv_fetch_array( $ejecutar, SQLSRV_FETCH_ASSOC);
+
+                    $format = $row['Monto'];
+                    $Dinero = number_format($format,2,".",".");
+                    
+                    
+                }else{
+                    die( print_r( sqlsrv_errors(), true) );
+                }
+                
+
+            ?>
+            
+            <div class="card-body">
+              <h5 class="text-center card-title"><?php echo "₡ $Dinero" ?></h5>
+            </div>
+          </div>
         </main>
-        <!-- Fin de lista de paquetes por usuario por rango de fechas -->
+        <!-- Fin de dinero recaudado -->
 
       </div>
     </div>
@@ -194,8 +193,8 @@
     <script>
       $(document).ready(function(){
 
-        $("#btn-paq-mes").click(function(){
-          $("#usrs-paqs").attr("hidden", false);
+        $("#btn-con-dinrec").click(function(){
+          $("#dinero-rec-card").attr("hidden", false);
         });
 
       });

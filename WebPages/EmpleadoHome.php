@@ -1,6 +1,8 @@
 <!doctype html>
 <?php
-    include('Connection.php');
+    //include('ConnectionSucursal.php');
+    include('ConnectionPrueba.php');
+
 ?>
 <html lang="en">
   <head>
@@ -28,7 +30,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Nombre de Empleado</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Cerrar sesión</a>
+          <a class="nav-link" href="../WebPages/InicioSesion.php">Cerrar sesión</a>
         </li>
       </ul>
     </nav>
@@ -37,62 +39,57 @@
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="../WebPages/EmpleadoHome.php">
-                  <span data-feather="home"></span>
-                  Principal
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoRetirarPaquete.php">
-                  <span data-feather="shopping-bag"></span>
-                  Retirar Paquete
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoDineroRecaudado.php">
-                  <span data-feather="dollar-sign"></span>
-                  Dinero Recaudado
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.php">
-                  <span data-feather="calendar"></span>
-                  Paquetes por Mes
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.php">
-                  <span data-feather="trending-up"></span>
-                  Monto Promedio
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoTipo.php">
-                  <span data-feather="circle"></span>
-                  Monto Paquete por Tipo
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.php">
-                  <span data-feather="dollar-sign"></span>
-                  Monto por Sucursal
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.php">
-                  <span data-feather="dollar-sign"></span>
-                  Monto Sucursal por Paquete
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.php">
-                  <span data-feather="users"></span>
-                  Mejores Clientes
-                </a>
-              </li>
-            </ul>
+          <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="../WebPages/EmpleadoHome.php">
+                      <span data-feather="home"></span>
+                      Principal
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoRetirarPaquete.php">
+                      <span data-feather="shopping-bag"></span>
+                      Retirar Paquete
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="../WebPages/EmpleadoDineroRecaudado.php">
+                      <span data-feather="dollar-sign"></span>
+                      Dinero Recaudado
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoPaquetesMes.php">
+                      <span data-feather="calendar"></span>
+                      Cantidad Paquetes por Periodo (Clientes)
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoMontoPromedio.php">
+                      <span data-feather="trending-up"></span>
+                      Monto Promedio de Paquetes
+                    </a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoMontoSucursal.php">
+                      <span data-feather="dollar-sign"></span>
+                      Monto por Sucursal
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoMontoSucursalPaquete.php">
+                      <span data-feather="dollar-sign"></span>
+                      Monto Sucursal por Paquete
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../WebPages/EmpleadoMejoresClientes.php">
+                      <span data-feather="users"></span>
+                      Mejores Clientes
+                    </a>
+                  </li>
+                </ul>
           </div>
         </nav>
 
@@ -106,7 +103,7 @@
           <form class="needs-validation" method="POST" novalidate>
             <div class="row principal">
 
-              <div class="col-md-4 mb-3 ">
+              <!--<div class="col-md-4 mb-3 ">
                 <label  for="sucursal">Sucursal</label>
                 <select class="custom-select d-block w-100" id="sucursal" name="Sucursal" required>
                   <option value="">Escoja una sucursal...</option>
@@ -117,22 +114,22 @@
                 <div class="invalid-feedback">
                   Seleccione una sucursal
                 </div>
-              </div>
+              </div>-->
 
-              <div class="col-md-4 mb-3">
+              <div class="col-md-12 mb-3">
                 <label for="cedula">Cédula del cliente</label>
                 <input type="text" class="form-control" name="Cedula" id="Cedula" placeholder="x-xxxx-xxxx" value="" required>
                 <div class="invalid-feedback">
                   Un numero de cédula válido
                 </div>
               </div>
-              <div class="col-md-4 mb-3">
+              <!--<div class="col-md-4 mb-3">
                 <label for="email">Email </label>
                 <input type="email" class="form-control" id="Email" name="email" placeholder="you@example.com" value="" required>
                 <div class="invalid-feedback">
                   Un correo válido
                 </div>
-              </div>
+              </div>-->
             </div>
 
             <div class="mb-3">
