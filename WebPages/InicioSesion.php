@@ -1,7 +1,7 @@
 <!doctype html>
 <?php 
-//include('Connection.php');
-include('ConnectionPrueba.php');
+include('Connection.php');
+//include('ConnectionPrueba.php');
 
 ?>
 <html lang="en">
