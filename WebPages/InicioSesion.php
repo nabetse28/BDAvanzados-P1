@@ -104,7 +104,8 @@ include('Connection.php');
                 die( print_r( sqlsrv_errors(), true) );
               }else{
                 $row = sqlsrv_fetch_array( $ejecutar, SQLSRV_FETCH_ASSOC);
-
+                
+                
                 setcookie("Nombre",$row['NombreCliente'],time()+3600);
                 setcookie("Apellido",$row['ApellidosCliente'],time()+3600);
                 setcookie("Cedula",$row['CedulaCliente'],time()+3600);

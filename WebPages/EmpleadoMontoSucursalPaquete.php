@@ -174,6 +174,9 @@
           </form>
           <?php
             if(isset($_GET['Consulta'])){
+              if($_COOKIE['IdSucursal'] == 1){
+
+              
                 $FI = strtotime( $_GET['FI']);
                 $FF = strtotime($_GET['FF']);
                 
@@ -232,6 +235,9 @@
             </div>
           </div>
           <?php
+                  }
+                }else{
+                  echo "<script>alert('Este usuario no puede accesar a estas funciones')</script>";
                 }
               }
           ?>

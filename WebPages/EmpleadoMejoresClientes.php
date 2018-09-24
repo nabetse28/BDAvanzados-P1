@@ -146,6 +146,9 @@
             </thead>
             <?php 
             if(isset($_GET['FechaConsultar'])){
+              if($_COOKIE['IdSucursal'] == 1){
+
+              
                 $FI = strtotime( $_GET['FI']);
                 $FF = strtotime($_GET['FF']);
                 
@@ -198,8 +201,11 @@
             </tbody>
           
           <?php
-                    }
+                  }
                 }
+              }else{
+                echo "<script>alert('Este usuario no puede accesar a estas funciones')</script>";
+              }
             }
           ?>
 

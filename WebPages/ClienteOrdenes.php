@@ -1,8 +1,8 @@
 <!doctype html>
 <?php
     
-    //include('ConnectionSucursal.php');
-    include('ConnectionPrueba.php');
+    include('ConnectionSucursal.php');
+    //include('ConnectionPrueba.php');
 ?>
 
 <html lang="en">
